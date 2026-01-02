@@ -393,6 +393,16 @@ document.addEventListener('DOMContentLoaded', () => {
   renderExperience();
   renderAchievements();
   setupProjectFilters();
+  
+  // Auto-scroll to projects if no hash in URL
+  if (!window.location.hash || window.location.hash === '#home') {
+    setTimeout(() => {
+      const projectsSection = document.getElementById('projects');
+      if (projectsSection) {
+        projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 500);
+  }
 
   // Animate skill progress bars on scroll
   const observerOptions = {
