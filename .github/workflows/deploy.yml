@@ -36,17 +36,26 @@ jobs:
       
       - name: Verify build output
         run: |
+          echo "=== Build output verification ==="
           ls -la dist/
-          if [ -f dist/index.html ]; then
-            echo "index.html exists"
-            head -20 dist/index.html
+          echo ""
+          echo "=== Checking for .nojekyll ==="
+          if [ -f dist/.nojekyll ]; then
+            echo "✓ .nojekyll exists"
+          else
+            echo "✗ .nojekyll missing, creating..."
+            touch dist/.nojekyll
           fi
-      
-      - name: Ensure .nojekyll exists
-        run: |
-          touch dist/.nojekyll
-          echo ".nojekyll file created"
-          ls -la dist/.nojekyll
+          echo ""
+          echo "=== Checking index.html ==="
+          if [ -f dist/index.html ]; then
+            echo "✓ index.html exists"
+            echo "First 30 lines of index.html:"
+            head -30 dist/index.html
+          else
+            echo "✗ index.html missing!"
+            exit 1
+          fi
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -66,4 +75,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
