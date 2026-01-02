@@ -26,14 +26,56 @@ navToggle.addEventListener('click', () => {
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', () => {
     navList.classList.remove('active');
+    // Close project detail if navigating away from projects
+    const href = link.getAttribute('href');
+    if (href !== '#projects' && href !== '#project-') {
+      const detailSection = document.getElementById('project-detail-section');
+      if (detailSection && detailSection.style.display === 'block') {
+        closeProjectDetail();
+      }
+    }
   });
 });
 
-// Smooth Scroll
+// Smooth Scroll with project detail handling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
+    const href = this.getAttribute('href');
+    
+    // If clicking on projects link, close detail view first
+    if (href === '#projects') {
+      closeProjectDetail();
+      // Wait a bit for the section to show, then scroll
+      setTimeout(() => {
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 100);
+      return;
+    }
+    
+    // Close project detail if open when navigating to other sections
+    const detailSection = document.getElementById('project-detail-section');
+    if (detailSection && detailSection.style.display === 'block') {
+      closeProjectDetail();
+      setTimeout(() => {
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 100);
+      return;
+    }
+    
+    const target = document.querySelector(href);
     if (target) {
       target.scrollIntoView({
         behavior: 'smooth',
@@ -60,8 +102,13 @@ function renderProjects(filterType = 'all', searchQuery = '') {
     return;
   }
 
-  container.innerHTML = filteredProjects.map(project => `
-    <div class="project-card" onclick="openProjectDetail('${project.id}')">
+  container.innerHTML = filteredProjects.map(project => {
+    // Escape HTML to prevent XSS
+    const safeTitle = project.title.replace(/'/g, "\\'");
+    const safeId = project.id.replace(/'/g, "\\'");
+    
+    return `
+    <div class="project-card" onclick="openProjectDetail('${safeId}')">
       <div class="project-card-header">
         <div>
           <h3 class="project-card-title">${project.title}</h3>
@@ -78,41 +125,73 @@ function renderProjects(filterType = 'all', searchQuery = '') {
         <span class="read-more">자세히 보기 →</span>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 // Project Filter
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filterType = btn.getAttribute('data-filter');
-    const searchQuery = document.getElementById('project-search').value;
-    renderProjects(filterType, searchQuery);
+function setupProjectFilters() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Close project detail if open
+      const detailSection = document.getElementById('project-detail-section');
+      if (detailSection && detailSection.style.display === 'block') {
+        closeProjectDetail();
+      }
+      
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filterType = btn.getAttribute('data-filter');
+      const searchInput = document.getElementById('project-search');
+      const searchQuery = searchInput ? searchInput.value : '';
+      renderProjects(filterType, searchQuery);
+    });
   });
-});
 
-// Project Search
-document.getElementById('project-search').addEventListener('input', (e) => {
-  const activeFilter = document.querySelector('.filter-btn.active');
-  const filterType = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
-  renderProjects(filterType, e.target.value);
-});
+  // Project Search
+  const searchInput = document.getElementById('project-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      // Close project detail if open
+      const detailSection = document.getElementById('project-detail-section');
+      if (detailSection && detailSection.style.display === 'block') {
+        closeProjectDetail();
+      }
+      
+      const activeFilter = document.querySelector('.filter-btn.active');
+      const filterType = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
+      renderProjects(filterType, e.target.value);
+    });
+  }
+}
 
 // Open Project Detail
 function openProjectDetail(projectId) {
   const project = projects.find(p => p.id === projectId);
-  if (!project) return;
+  if (!project) {
+    console.error('Project not found:', projectId);
+    return;
+  }
 
   const projectsSection = document.getElementById('projects');
   const detailSection = document.getElementById('project-detail-section');
   const detailContent = document.getElementById('project-detail-content');
+  
+  if (!projectsSection || !detailSection || !detailContent) {
+    console.error('Required elements not found');
+    return;
+  }
   
   // Hide projects list
   projectsSection.style.display = 'none';
   
   // Show detail section
   detailSection.style.display = 'block';
+  
+  // Update URL hash without triggering scroll
+  if (history.pushState) {
+    history.pushState(null, null, `#project-${projectId}`);
+  }
   
   // Build detailed content
   let contentHTML = `
@@ -188,12 +267,35 @@ function closeProjectDetail() {
   const projectsSection = document.getElementById('projects');
   const detailSection = document.getElementById('project-detail-section');
   
+  if (!projectsSection || !detailSection) {
+    return;
+  }
+  
   detailSection.style.display = 'none';
   projectsSection.style.display = 'block';
   
+  // Update URL hash
+  if (history.pushState) {
+    history.pushState(null, null, '#projects');
+  }
+  
   // Scroll to projects section
-  projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => {
+    projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
 }
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', () => {
+  const hash = window.location.hash;
+  if (hash && hash.startsWith('#project-')) {
+    const projectId = hash.replace('#project-', '');
+    openProjectDetail(projectId);
+  } else {
+    closeProjectDetail();
+  }
+});
+
 
 // Render Skills
 function renderSkills() {
@@ -276,7 +378,7 @@ function renderAchievements() {
           <h3 class="achievement-title">${achievement.title}</h3>
           <div class="achievement-date">${achievement.date}</div>
           <p class="achievement-description">${achievement.description}</p>
-          ${achievement.projectId ? `<a href="#projects" class="achievement-link" onclick="openProjectDetail('${achievement.projectId}'); return false;">프로젝트 보기 →</a>` : ''}
+          ${achievement.projectId ? `<a href="#projects" class="achievement-link" onclick="event.preventDefault(); event.stopPropagation(); openProjectDetail('${achievement.projectId}'); return false;">프로젝트 보기 →</a>` : ''}
           ${achievement.link ? `<a href="${achievement.link}" target="_blank" rel="noopener noreferrer" class="achievement-link">링크 보기 →</a>` : ''}
         </div>
       </div>
@@ -290,6 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSkills();
   renderExperience();
   renderAchievements();
+  setupProjectFilters();
 
   // Animate skill progress bars on scroll
   const observerOptions = {
@@ -314,6 +417,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.skill-category').forEach(category => {
     observer.observe(category);
   });
+  
+  // Check URL hash on page load (moved here to ensure it runs after everything is initialized)
+  const hash = window.location.hash;
+  if (hash && hash.startsWith('#project-')) {
+    const projectId = hash.replace('#project-', '');
+    setTimeout(() => {
+      openProjectDetail(projectId);
+    }, 200);
+  }
 });
 
 // Header scroll effect

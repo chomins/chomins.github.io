@@ -408,6 +408,7 @@ body {
   padding: 6rem 0 4rem;
   min-height: 100vh;
   background-color: var(--bg-color);
+  display: none;
 }
 
 .back-button {
