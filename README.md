@@ -1,68 +1,171 @@
-# [Start Bootstrap - Resume](https://startbootstrap.com/template-overviews/resume/)
+# 조민수 포트폴리오 웹사이트
 
-[Resume](https://startbootstrap.com/template-overviews/resume/) is a resume and CV theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features a fixed sidebar with content sections to build a simple, yet elegant resume.
+엔터프라이즈 B2B 통합 전문가 조민수의 포트폴리오 웹사이트입니다.
 
-## Preview
+## 기술 스택
 
-[![Resume Preview](https://startbootstrap.com/assets/img/screenshots/themes/resume.png)](https://blackrockdigital.github.io/startbootstrap-resume/)
+- **Frontend**: React 18 + TypeScript
+- **스타일링**: Tailwind CSS
+- **라우팅**: React Router v6
+- **애니메이션**: Framer Motion
+- **빌드 도구**: Vite
+- **차트**: Recharts
 
-**[View Live Preview](https://blackrockdigital.github.io/startbootstrap-resume/)**
+## 주요 기능
 
-## Status
+- ✅ 반응형 디자인 (Mobile, Tablet, Desktop)
+- ✅ 다크 모드 지원
+- ✅ 프로젝트 필터링 및 검색
+- ✅ 부드러운 페이지 전환 애니메이션
+- ✅ SEO 최적화
+- ✅ 성능 최적화 (Lazy Loading, Code Splitting)
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/BlackrockDigital/startbootstrap-resume/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-resume.svg)](https://www.npmjs.com/package/startbootstrap-resume)
-[![Build Status](https://travis-ci.org/BlackrockDigital/startbootstrap-resume.svg?branch=master)](https://travis-ci.org/BlackrockDigital/startbootstrap-resume)
-[![dependencies Status](https://david-dm.org/BlackrockDigital/startbootstrap-resume/status.svg)](https://david-dm.org/BlackrockDigital/startbootstrap-resume)
-[![devDependencies Status](https://david-dm.org/BlackrockDigital/startbootstrap-resume/dev-status.svg)](https://david-dm.org/BlackrockDigital/startbootstrap-resume?type=dev)
+## 시작하기
 
-## Download and Installation
+### 설치
 
-To begin using this template, choose one of the following options to get started:
-* [Download the latest release on Start Bootstrap](https://startbootstrap.com/template-overviews/resume/)
-* Install via npm: `npm i startbootstrap-resume`
-* Clone the repo: `git clone https://github.com/BlackrockDigital/startbootstrap-resume.git`
-* [Fork, Clone, or Download on GitHub](https://github.com/BlackrockDigital/startbootstrap-resume)
+```bash
+npm install
+```
 
-## Usage
+### 개발 서버 실행
 
-### Basic Usage
+```bash
+npm run dev
+```
 
-After downloading, simply edit the HTML and CSS files included with the template in your favorite text editor to make changes. These are the only files you need to worry about, you can ignore everything else! To preview the changes you make to the code, you can open the `index.html` file in your web browser.
+개발 서버가 `http://localhost:5173`에서 실행됩니다.
 
-### Advanced Usage
+### 빌드
 
-After installation, run `npm install` and then run `npm start` which will open up a preview of the template in your default browser, watch for changes to core template files, and live reload the browser when changes are saved. You can view the `gulpfile.js` to see which tasks are included with the dev environment.
+```bash
+npm run build
+```
 
-#### Gulp Tasks
+빌드 결과물은 `dist` 폴더에 생성됩니다.
 
-- `gulp` the default task that builds everything
-- `gulp watch` browserSync opens the project in your default browser and live reloads when changes are made
-- `gulp css` compiles SCSS files into CSS and minifies the compiled CSS
-- `gulp js` minifies the themes JS file
-- `gulp vendor` copies dependencies from node_modules to the vendor directory
+### 미리보기
 
-You must have npm installed globally in order to use this build environment.
+```bash
+npm run preview
+```
 
-## Bugs and Issues
+빌드된 결과물을 미리 볼 수 있습니다.
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/BlackrockDigital/startbootstrap-resume/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](http://startbootstrap.com/template-overviews/resume/).
+## 배포
 
-## About
+### GitHub Pages 자동 배포 (권장)
 
-Start Bootstrap is an open source library of free Bootstrap templates and themes. All of the free templates and themes on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
+이 프로젝트는 GitHub Actions를 사용하여 자동으로 배포됩니다.
 
-* https://startbootstrap.com
-* https://twitter.com/SBootstrap
+1. 코드를 `main` 브랜치에 푸시:
+   ```bash
+   git add .
+   git commit -m "Update portfolio"
+   git push origin main
+   ```
 
-Start Bootstrap was created by and is maintained by **[David Miller](http://davidmiller.io/)**, Owner of [Blackrock Digital](http://blackrockdigital.io/).
+2. GitHub 저장소 Settings > Pages에서:
+   - Source를 "GitHub Actions"로 설정
+   - 자동으로 빌드 및 배포됨
+   - 배포 완료 후 `https://chomins.github.io`에서 확인 가능
 
-* http://davidmiller.io
-* https://twitter.com/davidmillerskt
-* https://github.com/davidtmiller
+### 수동 배포
 
-Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
+수동으로 배포하려면:
 
-## Copyright and License
+1. 빌드:
+   ```bash
+   npm run build
+   ```
 
-Copyright 2013-2019 Blackrock Digital LLC. Code released under the [MIT](https://github.com/BlackrockDigital/startbootstrap-resume/blob/gh-pages/LICENSE) license.
+2. `dist` 폴더의 내용을 GitHub Pages에 배포
+
+### Vercel을 사용한 배포
+
+1. GitHub 저장소에 푸시
+2. [Vercel](https://vercel.com)에 로그인
+3. "New Project" 클릭
+4. GitHub 저장소 선택
+5. 자동으로 빌드 및 배포됨
+
+## 프로젝트 구조
+
+```
+portfolio/
+├── src/
+│   ├── components/     # 재사용 가능한 컴포넌트
+│   │   └── common/     # 공통 컴포넌트 (Header, Footer 등)
+│   ├── pages/          # 페이지 컴포넌트
+│   │   ├── Home.tsx
+│   │   ├── Projects.tsx
+│   │   ├── ProjectDetail.tsx
+│   │   ├── Skills.tsx
+│   │   ├── Experience.tsx
+│   │   ├── Achievements.tsx
+│   │   └── Contact.tsx
+│   ├── data/           # 프로젝트 데이터
+│   │   ├── projects.ts
+│   │   ├── experience.ts
+│   │   ├── skills.ts
+│   │   └── achievements.ts
+│   ├── hooks/          # 커스텀 훅
+│   │   └── useDarkMode.ts
+│   ├── styles/         # 스타일 파일
+│   │   └── globals.css
+│   ├── App.tsx         # 메인 앱 컴포넌트
+│   └── main.tsx        # 진입점
+├── public/             # 정적 파일
+├── dist/              # 빌드 결과물
+└── package.json
+```
+
+## 페이지 구성
+
+- **Home** (`/`): 홈 페이지, 자기소개 및 주요 프로젝트 하이라이트
+- **Projects** (`/projects`): 프로젝트 목록 페이지 (필터링 및 검색 지원)
+- **Project Detail** (`/projects/:id`): 프로젝트 상세 페이지
+- **Skills** (`/skills`): 기술 스택 페이지 (숙련도 시각화)
+- **Experience** (`/experience`): 경력 페이지 (타임라인 형식)
+- **Achievements** (`/achievements`): 수상 및 성과 페이지
+- **Contact** (`/contact`): 연락처 페이지
+
+## 데이터 수정
+
+프로젝트, 경력, 기술 스택 등의 데이터는 `src/data/` 폴더의 파일들을 수정하면 됩니다:
+
+- `projects.ts`: 프로젝트 데이터
+- `experience.ts`: 경력 데이터
+- `skills.ts`: 기술 스택 데이터
+- `achievements.ts`: 수상 및 성과 데이터
+
+## 커스터마이징
+
+### 색상 변경
+
+`tailwind.config.js`에서 색상을 변경할 수 있습니다:
+
+```javascript
+colors: {
+  primary: '#2563EB',    // 메인 색상
+  secondary: '#10B981',  // 보조 색상
+  accent: '#F59E0B',     // 강조 색상
+}
+```
+
+### 폰트 변경
+
+`index.html`에서 폰트를 변경하거나 `tailwind.config.js`에서 폰트 패밀리를 설정할 수 있습니다.
+
+## 라이선스
+
+MIT
+
+## 작성자
+
+조민수 (Minsu Cho)
+- Email: cms4317@naver.com
+- GitHub: [chomins](https://github.com/chomins)
+- Portfolio: [chomins.github.io](https://chomins.github.io/)
+
+
