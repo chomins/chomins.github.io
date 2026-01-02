@@ -1,22 +1,196 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="조민수 포트폴리오 - 엔터프라이즈 B2B 통합 전문가" />
-    <meta name="keywords" content="포트폴리오, 웹 개발자, 풀스택, React, Java, B2B 통합" />
-    <meta property="og:title" content="조민수 포트폴리오" />
-    <meta property="og:description" content="엔터프라이즈 B2B 통합 전문가" />
-    <meta property="og:type" content="website" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="조민수 포트폴리오 - 엔터프라이즈 B2B 통합 전문가">
+    <meta name="keywords" content="포트폴리오, 웹 개발자, 풀스택, React, Java, B2B 통합">
+    <meta property="og:title" content="조민수 포트폴리오">
+    <meta property="og:description" content="엔터프라이즈 B2B 통합 전문가">
+    <meta property="og:type" content="website">
+    <title>조민수 포트폴리오</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-    <title>조민수 포트폴리오</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#home" class="nav-logo">조민수</a>
+            <div class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                    <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+                    <li class="nav-item"><a href="#experience" class="nav-link">Experience</a></li>
+                    <li class="nav-item"><a href="#achievements" class="nav-link">Achievements</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <button class="nav-toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Toggle dark mode">
+                <span class="sun-icon">☀️</span>
+                <span class="moon-icon">🌙</span>
+            </button>
+        </nav>
+    </header>
 
+    <main class="main">
+        <!-- Home Section -->
+        <section class="home section" id="home">
+            <div class="home-container container">
+                <div class="home-content">
+                    <h1 class="home-title">
+                        안녕하세요, <span class="home-title-color">조민수</span>입니다
+                    </h1>
+                    <h2 class="home-subtitle">엔터프라이즈 B2B 통합 전문가 | Full-Stack Web Developer</h2>
+                    <p class="home-description">
+                        항상 새로운 기술을 배우며 모험하는 것을 즐기고, 협업을 위해 배려하며 성장하기 위해 노력합니다.
+                    </p>
+                    <div class="home-buttons">
+                        <a href="#projects" class="button button-primary">프로젝트 보기</a>
+                        <a href="#contact" class="button button-ghost">연락하기</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about section" id="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <p>
+                        엔터프라이즈 B2B 통합 및 연동 분야에서 5년 이상의 경험을 보유한 풀스택 웹 개발자입니다. 
+                        EDIINT, EbXML, HTTP/HTTPS 등 다양한 프로토콜을 구현하고, OSGI 기반 플러그인 아키텍처와 
+                        분산 시스템 설계 경험을 보유하고 있습니다.
+                    </p>
+                    <p>
+                        설계부터 개발, 운영까지 전 과정을 담당하며, 다양한 고객사와의 안정적인 B2B 통신 시스템을 
+                        구축해왔습니다. React.js, Spring Framework, OSGI 등을 활용한 풀스택 개발 경험과 AWS 
+                        클라우드 환경에서의 서비스 개발 경험을 보유하고 있습니다.
+                    </p>
+                    <p>
+                        최근에는 AI 기술을 활용한 개발 도구 및 마케팅 콘텐츠 자동화 시스템을 개발하여 회사 AI 
+                        경진대회에서 개인전 1등, 팀전 2등을 수상한 경험이 있습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects section" id="projects">
+            <div class="container">
+                <h2 class="section-title">Projects</h2>
+                <p class="section-subtitle">엔터프라이즈 B2B 통합 및 개인 프로젝트를 소개합니다.</p>
+                
+                <!-- Filters -->
+                <div class="projects-filters">
+                    <button class="filter-btn active" data-filter="all">전체</button>
+                    <button class="filter-btn" data-filter="company">회사 프로젝트</button>
+                    <button class="filter-btn" data-filter="personal">개인 프로젝트</button>
+                    <input type="text" class="search-input" id="project-search" placeholder="프로젝트 검색...">
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="projects-container" id="projects-container">
+                    <!-- Projects will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Detail Modal -->
+        <div class="modal" id="project-modal">
+            <div class="modal-content">
+                <span class="modal-close" id="modal-close">&times;</span>
+                <div id="modal-body">
+                    <!-- Project details will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Section -->
+        <section class="skills section" id="skills">
+            <div class="container">
+                <h2 class="section-title">Skills</h2>
+                <p class="section-subtitle">다양한 기술 스택과 숙련도를 소개합니다.</p>
+                <div class="skills-container" id="skills-container">
+                    <!-- Skills will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="experience section" id="experience">
+            <div class="container">
+                <h2 class="section-title">Experience</h2>
+                <p class="section-subtitle">엔터프라이즈 B2B 통합 분야에서의 경력과 주요 업무를 소개합니다.</p>
+                <div class="experience-container" id="experience-container">
+                    <!-- Experience will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section class="achievements section" id="achievements">
+            <div class="container">
+                <h2 class="section-title">Achievements</h2>
+                <p class="section-subtitle">수상 내역 및 주요 성과를 소개합니다.</p>
+                <div class="achievements-container" id="achievements-container">
+                    <!-- Achievements will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact section" id="contact">
+            <div class="container">
+                <h2 class="section-title">Contact</h2>
+                <p class="section-subtitle">궁금한 점이 있으시면 언제든지 연락주세요.</p>
+                <div class="contact-container">
+                    <div class="contact-card">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email</h3>
+                        <a href="mailto:cms4317@naver.com">cms4317@naver.com</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">📱</div>
+                        <h3>Phone</h3>
+                        <a href="tel:010-2649-4947">010-2649-4947</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">💻</div>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/chomins" target="_blank" rel="noopener noreferrer">github.com/chomins</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">🌐</div>
+                        <h3>Portfolio</h3>
+                        <a href="https://chomins.github.io/" target="_blank" rel="noopener noreferrer">chomins.github.io</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2025 조민수. All rights reserved.</p>
+            <div class="footer-social">
+                <a href="https://github.com/chomins" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+                <a href="mailto:cms4317@naver.com" aria-label="Email">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

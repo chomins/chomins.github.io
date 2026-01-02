@@ -4,158 +4,99 @@
 
 ## 기술 스택
 
-- **Frontend**: React 18 + TypeScript
-- **스타일링**: Tailwind CSS
-- **라우팅**: React Router v6
-- **애니메이션**: Framer Motion
-- **빌드 도구**: Vite
-- **차트**: Recharts
+- **HTML5**: 시맨틱 마크업
+- **CSS3**: 모던 스타일링 및 다크 모드 지원
+- **JavaScript (Vanilla)**: 순수 JavaScript로 구현된 인터랙티브 기능
+- **반응형 디자인**: Mobile, Tablet, Desktop 지원
 
 ## 주요 기능
 
 - ✅ 반응형 디자인 (Mobile, Tablet, Desktop)
 - ✅ 다크 모드 지원
 - ✅ 프로젝트 필터링 및 검색
-- ✅ 부드러운 페이지 전환 애니메이션
+- ✅ 부드러운 스크롤 애니메이션
+- ✅ 프로젝트 상세 모달
+- ✅ 기술 스택 숙련도 시각화
+- ✅ 경력 타임라인
 - ✅ SEO 최적화
-- ✅ 성능 최적화 (Lazy Loading, Code Splitting)
 
-## 시작하기
+## 파일 구조
 
-### 설치
-
-```bash
-npm install
+```
+chomins.github.io/
+├── index.html          # 메인 HTML 파일
+├── css/
+│   └── style.css       # 스타일시트
+├── js/
+│   ├── data.js         # 프로젝트 데이터
+│   └── main.js         # 메인 JavaScript 로직
+├── .nojekyll           # GitHub Pages Jekyll 비활성화
+└── README.md
 ```
 
-### 개발 서버 실행
+## 로컬에서 실행하기
 
-```bash
-npm run dev
-```
+1. 저장소 클론:
+   ```bash
+   git clone https://github.com/chomins/chomins.github.io.git
+   cd chomins.github.io
+   ```
 
-개발 서버가 `http://localhost:5173`에서 실행됩니다.
+2. 로컬 서버 실행:
+   ```bash
+   # Python 3 사용
+   python -m http.server 8000
+   
+   # 또는 Node.js 사용
+   npx serve
+   ```
 
-### 빌드
-
-```bash
-npm run build
-```
-
-빌드 결과물은 `dist` 폴더에 생성됩니다.
-
-### 미리보기
-
-```bash
-npm run preview
-```
-
-빌드된 결과물을 미리 볼 수 있습니다.
+3. 브라우저에서 열기:
+   ```
+   http://localhost:8000
+   ```
 
 ## 배포
 
-### GitHub Pages 자동 배포 (권장)
+이 저장소는 GitHub Pages를 통해 자동으로 배포됩니다.
 
-이 프로젝트는 GitHub Actions를 사용하여 자동으로 배포됩니다.
+- 저장소 이름이 `username.github.io` 형식이므로 자동으로 루트 도메인에서 호스팅됩니다.
+- `main` 브랜치에 푸시하면 자동으로 배포됩니다.
+- 배포된 사이트: https://chomins.github.io
 
-1. 코드를 `main` 브랜치에 푸시:
-   ```bash
-   git add .
-   git commit -m "Update portfolio"
-   git push origin main
-   ```
+### 배포 설정
 
-2. GitHub 저장소 Settings > Pages에서:
-   - Source를 "GitHub Actions"로 설정
-   - 자동으로 빌드 및 배포됨
-   - 배포 완료 후 `https://chomins.github.io`에서 확인 가능
-
-### 수동 배포
-
-수동으로 배포하려면:
-
-1. 빌드:
-   ```bash
-   npm run build
-   ```
-
-2. `dist` 폴더의 내용을 GitHub Pages에 배포
-
-### Vercel을 사용한 배포
-
-1. GitHub 저장소에 푸시
-2. [Vercel](https://vercel.com)에 로그인
-3. "New Project" 클릭
-4. GitHub 저장소 선택
-5. 자동으로 빌드 및 배포됨
-
-## 프로젝트 구조
-
-```
-portfolio/
-├── src/
-│   ├── components/     # 재사용 가능한 컴포넌트
-│   │   └── common/     # 공통 컴포넌트 (Header, Footer 등)
-│   ├── pages/          # 페이지 컴포넌트
-│   │   ├── Home.tsx
-│   │   ├── Projects.tsx
-│   │   ├── ProjectDetail.tsx
-│   │   ├── Skills.tsx
-│   │   ├── Experience.tsx
-│   │   ├── Achievements.tsx
-│   │   └── Contact.tsx
-│   ├── data/           # 프로젝트 데이터
-│   │   ├── projects.ts
-│   │   ├── experience.ts
-│   │   ├── skills.ts
-│   │   └── achievements.ts
-│   ├── hooks/          # 커스텀 훅
-│   │   └── useDarkMode.ts
-│   ├── styles/         # 스타일 파일
-│   │   └── globals.css
-│   ├── App.tsx         # 메인 앱 컴포넌트
-│   └── main.tsx        # 진입점
-├── public/             # 정적 파일
-├── dist/              # 빌드 결과물
-└── package.json
-```
-
-## 페이지 구성
-
-- **Home** (`/`): 홈 페이지, 자기소개 및 주요 프로젝트 하이라이트
-- **Projects** (`/projects`): 프로젝트 목록 페이지 (필터링 및 검색 지원)
-- **Project Detail** (`/projects/:id`): 프로젝트 상세 페이지
-- **Skills** (`/skills`): 기술 스택 페이지 (숙련도 시각화)
-- **Experience** (`/experience`): 경력 페이지 (타임라인 형식)
-- **Achievements** (`/achievements`): 수상 및 성과 페이지
-- **Contact** (`/contact`): 연락처 페이지
+1. GitHub 저장소 Settings > Pages로 이동
+2. Source를 "Deploy from a branch"로 선택
+3. Branch를 "main"으로 선택
+4. Save 클릭
 
 ## 데이터 수정
 
-프로젝트, 경력, 기술 스택 등의 데이터는 `src/data/` 폴더의 파일들을 수정하면 됩니다:
+프로젝트, 경력, 기술 스택 등의 데이터는 `js/data.js` 파일을 수정하면 됩니다.
 
-- `projects.ts`: 프로젝트 데이터
-- `experience.ts`: 경력 데이터
-- `skills.ts`: 기술 스택 데이터
-- `achievements.ts`: 수상 및 성과 데이터
+- `projects`: 프로젝트 데이터 배열
+- `experiences`: 경력 데이터 배열
+- `skills`: 기술 스택 데이터 배열
+- `achievements`: 수상 및 성과 데이터 배열
 
 ## 커스터마이징
 
 ### 색상 변경
 
-`tailwind.config.js`에서 색상을 변경할 수 있습니다:
+`css/style.css` 파일의 CSS 변수를 수정하세요:
 
-```javascript
-colors: {
-  primary: '#2563EB',    // 메인 색상
-  secondary: '#10B981',  // 보조 색상
-  accent: '#F59E0B',     // 강조 색상
+```css
+:root {
+  --primary-color: #2563EB;    /* 메인 색상 */
+  --secondary-color: #10B981;  /* 보조 색상 */
+  --accent-color: #F59E0B;     /* 강조 색상 */
 }
 ```
 
 ### 폰트 변경
 
-`index.html`에서 폰트를 변경하거나 `tailwind.config.js`에서 폰트 패밀리를 설정할 수 있습니다.
+`index.html`의 Google Fonts 링크를 수정하거나 `css/style.css`의 `font-family`를 변경하세요.
 
 ## 라이선스
 
@@ -167,5 +108,3 @@ MIT
 - Email: cms4317@naver.com
 - GitHub: [chomins](https://github.com/chomins)
 - Portfolio: [chomins.github.io](https://chomins.github.io/)
-
-
