@@ -61,18 +61,21 @@ function renderProjects(filterType = 'all', searchQuery = '') {
   }
 
   container.innerHTML = filteredProjects.map(project => `
-    <div class="project-card" onclick="openProjectModal('${project.id}')">
+    <div class="project-card" onclick="openProjectDetail('${project.id}')">
       <div class="project-card-header">
         <div>
           <h3 class="project-card-title">${project.title}</h3>
-          <div class="project-card-meta">${project.period} · ${project.type === 'company' ? '회사 프로젝트' : '개인 프로젝트'}</div>
+          <div class="project-card-meta">${project.period} · ${project.type === 'company' ? '회사 프로젝트' : '개인 프로젝트'} · ${project.role}</div>
         </div>
         ${project.featured ? '<span class="project-featured">Featured</span>' : ''}
       </div>
       <p class="project-card-description">${project.shortDescription}</p>
       <div class="project-card-tech">
-        ${project.technologies.slice(0, 5).map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-        ${project.technologies.length > 5 ? `<span class="tech-tag">+${project.technologies.length - 5}</span>` : ''}
+        ${project.technologies.slice(0, 6).map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+        ${project.technologies.length > 6 ? `<span class="tech-tag">+${project.technologies.length - 6}</span>` : ''}
+      </div>
+      <div class="project-card-footer">
+        <span class="read-more">자세히 보기 →</span>
       </div>
     </div>
   `).join('');
@@ -96,59 +99,101 @@ document.getElementById('project-search').addEventListener('input', (e) => {
   renderProjects(filterType, e.target.value);
 });
 
-// Open Project Modal
-function openProjectModal(projectId) {
+// Open Project Detail
+function openProjectDetail(projectId) {
   const project = projects.find(p => p.id === projectId);
   if (!project) return;
 
-  const modal = document.getElementById('project-modal');
-  const modalBody = document.getElementById('modal-body');
+  const projectsSection = document.getElementById('projects');
+  const detailSection = document.getElementById('project-detail-section');
+  const detailContent = document.getElementById('project-detail-content');
   
-  modalBody.innerHTML = `
-    <h2 class="modal-title">${project.title}</h2>
-    <div class="modal-meta">${project.period} · ${project.type === 'company' ? '회사 프로젝트' : '개인 프로젝트'} · ${project.role}</div>
-    
-    <div class="modal-section">
-      <h3>프로젝트 개요</h3>
-      <p>${project.description}</p>
-    </div>
-
-    <div class="modal-section">
-      <h3>기술 스택</h3>
-      <div class="project-card-tech">
-        ${project.technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+  // Hide projects list
+  projectsSection.style.display = 'none';
+  
+  // Show detail section
+  detailSection.style.display = 'block';
+  
+  // Build detailed content
+  let contentHTML = `
+    <div class="project-detail-header">
+      <h1 class="project-detail-title">${project.title}</h1>
+      <div class="project-detail-meta">
+        <span class="meta-item">📅 ${project.period}</span>
+        <span class="meta-item">${project.type === 'company' ? '🏢 회사 프로젝트' : '👤 개인 프로젝트'}</span>
+        <span class="meta-item">👨‍💻 ${project.role}</span>
+        ${project.featured ? '<span class="meta-item featured-badge">⭐ Featured</span>' : ''}
       </div>
     </div>
 
-    <div class="modal-section">
-      <h3>주요 기능</h3>
-      <ul>
-        ${project.highlights.map(highlight => `<li>${highlight}</li>`).join('')}
-      </ul>
-    </div>
+    <div class="project-detail-body">
+      <section class="detail-section">
+        <h2 class="detail-section-title">프로젝트 개요</h2>
+        <p class="detail-description">${project.description}</p>
+        ${project.background ? `<div class="detail-subsection">
+          <h3 class="detail-subtitle">프로젝트 배경</h3>
+          <p>${project.background}</p>
+        </div>` : ''}
+      </section>
 
-    <div class="modal-section">
-      <h3>성과 및 기여도</h3>
-      <ul>
-        ${project.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
-      </ul>
+      <section class="detail-section">
+        <h2 class="detail-section-title">기술 스택</h2>
+        <div class="tech-stack-grid">
+          ${project.technologies.map(tech => `<span class="tech-badge-large">${tech}</span>`).join('')}
+        </div>
+      </section>
+
+      ${project.challenges && project.challenges.length > 0 ? `
+      <section class="detail-section">
+        <h2 class="detail-section-title">주요 도전 과제</h2>
+        <ul class="detail-list">
+          ${project.challenges.map(challenge => `<li>${challenge}</li>`).join('')}
+        </ul>
+      </section>
+      ` : ''}
+
+      <section class="detail-section">
+        <h2 class="detail-section-title">주요 기능 및 구현 내용</h2>
+        <ul class="detail-list">
+          ${project.highlights.map(highlight => `<li>${highlight}</li>`).join('')}
+        </ul>
+      </section>
+
+      ${project.technicalDetails && project.technicalDetails.length > 0 ? `
+      <section class="detail-section">
+        <h2 class="detail-section-title">기술적 하이라이트</h2>
+        <ul class="detail-list">
+          ${project.technicalDetails.map(detail => `<li>${detail}</li>`).join('')}
+        </ul>
+      </section>
+      ` : ''}
+
+      <section class="detail-section">
+        <h2 class="detail-section-title">성과 및 기여도</h2>
+        <ul class="detail-list achievements-list">
+          ${project.achievements.map(achievement => `<li>✅ ${achievement}</li>`).join('')}
+        </ul>
+      </section>
     </div>
   `;
-
-  modal.style.display = 'block';
+  
+  detailContent.innerHTML = contentHTML;
+  
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Close Modal
-document.getElementById('modal-close').addEventListener('click', () => {
-  document.getElementById('project-modal').style.display = 'none';
-});
-
-window.addEventListener('click', (e) => {
-  const modal = document.getElementById('project-modal');
-  if (e.target === modal) {
-    modal.style.display = 'none';
-  }
-});
+// Close Project Detail
+function closeProjectDetail() {
+  const projectsSection = document.getElementById('projects');
+  const detailSection = document.getElementById('project-detail-section');
+  
+  detailSection.style.display = 'none';
+  projectsSection.style.display = 'block';
+  
+  // Scroll to projects section
+  projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
 // Render Skills
 function renderSkills() {
@@ -231,7 +276,7 @@ function renderAchievements() {
           <h3 class="achievement-title">${achievement.title}</h3>
           <div class="achievement-date">${achievement.date}</div>
           <p class="achievement-description">${achievement.description}</p>
-          ${achievement.projectId ? `<a href="#projects" class="achievement-link" onclick="openProjectModal('${achievement.projectId}'); return false;">프로젝트 보기 →</a>` : ''}
+          ${achievement.projectId ? `<a href="#projects" class="achievement-link" onclick="openProjectDetail('${achievement.projectId}'); return false;">프로젝트 보기 →</a>` : ''}
           ${achievement.link ? `<a href="${achievement.link}" target="_blank" rel="noopener noreferrer" class="achievement-link">링크 보기 →</a>` : ''}
         </div>
       </div>
