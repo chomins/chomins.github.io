@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { experiences } from '../data/experience';
-import { FiCalendar, FiMapPin } from 'react-icons/fi';
+import { FiCalendar } from 'react-icons/fi';
 
 export const Experience = () => {
   return (

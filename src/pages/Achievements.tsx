@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { achievements } from '../data/achievements';
-import { FiAward, FiTrophy, FiStar, FiExternalLink } from 'react-icons/fi';
+import { FiAward, FiStar, FiExternalLink } from 'react-icons/fi';
 
 export const Achievements = () => {
   const getIcon = (type: string) => {
     switch (type) {
-      case 'award': return FiTrophy;
+      case 'award': return FiAward;
       case 'project': return FiStar;
       case 'contribution': return FiAward;
       default: return FiAward;
